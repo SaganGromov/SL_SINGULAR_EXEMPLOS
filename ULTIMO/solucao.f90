@@ -17,7 +17,7 @@ contains
     integer :: i
     character(len=32) :: fname
 
-    write(fname,'(A,I0,A)') 'solucao_autovalor_', idx, '.dat'
+    write(fname,'(A,I0,A)') 'solucao_autovalor_', idx-1, '.dat'
     open(unit=20, file=fname, status='replace')
 
     ! Condições iniciais em x=a

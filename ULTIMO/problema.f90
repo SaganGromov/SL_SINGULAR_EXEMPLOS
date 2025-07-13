@@ -1,5 +1,6 @@
 module problema
   implicit none
+  real(8), parameter :: pi = acos(-1.0d0)
 contains
 
   !------------------------------------------------------------------
@@ -19,14 +20,14 @@ contains
     real(8)             :: val
     ! Derivada de p(x):
     ! Se p(x)=1 ⇒ p'(x)=0
-    val = 1.0d0
+    val = 1
   end function dp
 
   pure function q(x) result(val)
     real(8), intent(in) :: x
     real(8)             :: val
     ! Exemplo atual:
-    val = cos(x) / (4*x)
+    val = cos(x)/(4*x)
   end function q
 
   pure function r(x) result(val)

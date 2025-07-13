@@ -4,7 +4,7 @@ module constantes
   !---------------------------------------------------------
   ! Domínio
   !---------------------------------------------------------
-  real(8), parameter :: a = 0.0d0 + 1.d-6
+  real(8), parameter :: a = 0.0d0 + 1.d-3
   real(8), parameter :: b = 1.0d0
 
   !---------------------------------------------------------
@@ -15,7 +15,7 @@ module constantes
   !---------------------------------------------------------
   ! Malha numérica e varredura em λ
   !---------------------------------------------------------
-  integer, parameter :: passos        = 1.0d4
+  integer, parameter :: passos        = 1.0d6
   real(8), parameter :: tol           = 1.0d-9
   integer, parameter :: n_eigen       = 5
   

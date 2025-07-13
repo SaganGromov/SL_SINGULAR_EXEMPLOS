@@ -13,11 +13,11 @@ program principal_melhorado
   real(8) :: tempo_inicio, tempo_fim
   
   
-  print '(A,F5.2,A,F5.2,A)', 'Condições em x=1: ', gamma, 'y + ', delta, 'y'' = 0'
+  ! print '(A,F5.2,A,F5.2,A)', 'Condições em x=1: ', gamma, 'y + ', delta, 'y'' = 0'
   print '(A,I2)', ' Nível de verbose: ', verbose_level
   
   ! Método 1: Com validação de autovalores (sem limites)
-  print *, 'MÉTODO 1: Busca com validação (sem limites)'
+  print *, 'Busca com validação'
   print *, '==========================================='
   call cpu_time(tempo_inicio)
   call encontrar_espectro_validado(eig, info_detalhada)
@@ -28,16 +28,14 @@ program principal_melhorado
   print *
   print *, 'RESUMO DOS AUTOVALORES ENCONTRADOS:'
   print *, '-----------------------------------'
-  print *, ' idx       λ         Iter.Busca  Iter.Bissec   Nós    F(λ)'
-  print *, '-----  ------------  ----------  -----------  ----  ----------'
+  print *, ' n       λ         Iter.Busca  Iter.Bissec'
+  print *, '-----  ------------  ----------  -----------'
   do i = 1, n_eigen
     if (eig(i) > 0.0d0) then
-      write(*,'(I5,F14.8,I12,I13,I6,E12.4)') i, &
+      write(*,'(I5,F14.8,I12,I13)') i-1, &
             info_detalhada(i)%lambda, &
             info_detalhada(i)%iter_busca, &
-            info_detalhada(i)%iter_bisseccao, &
-            info_detalhada(i)%nodes, &
-            info_detalhada(i)%F_lambda
+            info_detalhada(i)%iter_bisseccao
       
       ! Salva a solução
       call salvar_sol(eig(i), i)
@@ -51,40 +49,31 @@ program principal_melhorado
   call analisar_estatisticas(info_detalhada)
   
   ! Método 2 apenas se verbose_level < 3 (para não poluir muito a saída)
-  if (verbose_level < 3) then
-    print *
-    print *, 'MÉTODO 2: Varredura direta de F(λ)'
-    print *, '=================================='
-    call cpu_time(tempo_inicio)
-    call encontrar_por_varredura_F(eig_varredura, n_eigen)
-    call cpu_time(tempo_fim)
-    print '(A,F8.2,A)', 'Tempo total: ', tempo_fim - tempo_inicio, ' segundos'
+  ! if (verbose_level < 3) then
+  !   print *
+  !   print *, 'MÉTODO 2: Varredura direta de F(λ)'
+  !   print *, '=================================='
+  !   call cpu_time(tempo_inicio)
+  !   call encontrar_por_varredura_F(eig_varredura, n_eigen)
+  !   call cpu_time(tempo_fim)
+  !   print '(A,F8.2,A)', 'Tempo total: ', tempo_fim - tempo_inicio, ' segundos'
     
     ! Comparação
-    print *
-    print *, 'COMPARAÇÃO DOS MÉTODOS:'
-    print *, '-----------------------'
-    print *, ' idx   Método 1      Método 2      Diferença'
-    do i = 1, n_eigen
-      if (eig(i) > 0.0d0 .or. eig_varredura(i) > 0.0d0) then
-        write(*,'(I3,1X,F12.6,1X,F12.6,1X,E12.4)') i, eig(i), eig_varredura(i), &
-              abs(eig(i) - eig_varredura(i))
-      end if
-    end do
-  end if
+    ! print *
+    ! print *, 'COMPARAÇÃO DOS MÉTODOS:'
+    ! print *, '-----------------------'
+    ! print *, ' idx   Método 1      Método 2      Diferença'
+    ! do i = 1, n_eigen
+    !   if (eig(i) > 0.0d0 .or. eig_varredura(i) > 0.0d0) then
+    !     write(*,'(I3,1X,F12.6,1X,F12.6,1X,E12.4)') i, eig(i), eig_varredura(i), &
+    !           abs(eig(i) - eig_varredura(i))
+    !   end if
+  !   end do
+  ! end if
   
  
   
-  ! Verificação da qualidade
-  print *
-  print *, 'VERIFICAÇÃO DA QUALIDADE:'
-  print *, '-------------------------'
-  print *, ' idx       λ           F(λ)       Muda sinal?'
-  do i = 1, n_eigen
-    if (eig(i) > 0.0d0) then
-      call verificar_qualidade(i, eig(i))
-    end if
-  end do
+
   
 
   

@@ -5,7 +5,7 @@ module constantes
   ! Domínio
   !---------------------------------------------------------
   real(8), parameter :: a = 0.0d0 + 1.d-6
-  real(8), parameter :: b = 1.0d0 - 1.d-6
+  real(8), parameter :: b = 1.0d0
 
   !---------------------------------------------------------
   ! Condições de contorno lineares  α y(a)+β y'(a)=0   γ y(b)+δ y'(b)=0
@@ -17,7 +17,7 @@ module constantes
   !---------------------------------------------------------
   integer, parameter :: passos        = 1.0d4
   real(8), parameter :: tol           = 1.0d-9
-  integer, parameter :: n_eigen       = 10
+  integer, parameter :: n_eigen       = 5
   
   !---------------------------------------------------------
   ! Controle de saída detalhada
@@ -26,7 +26,7 @@ module constantes
   ! 2 = Informações detalhadas
   ! 3 = Debug completo (mostra cada etapa)
   !---------------------------------------------------------
-  integer, parameter :: verbose_level = 3
+  integer, parameter :: verbose_level = 0
   logical, parameter :: verbose = (verbose_level > 0)
   
   !---------------------------------------------------------

@@ -242,7 +242,7 @@ contains
     end do
   end subroutine encontrar_espectro_validado_simples
   
-  ! Método alternativo: varredura sem limites por F(λ)
+
   subroutine encontrar_por_varredura_F(eig, n_max)
     real(8), intent(out) :: eig(:)
     integer, intent(in) :: n_max
